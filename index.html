@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <meta name="description" content="Personal portfolio with background, skills, class projects and contact details." />
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) root.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" />
+
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eef2ff', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+            accent: { 400: '#2dd4bf', 500: '#14b8a6' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Poppins', 'Inter', 'system-ui', 'sans-serif']
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-18px)' }
+            }
+          },
+          animation: { float: 'float 7s ease-in-out infinite' }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="content.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
+
+  <div id="progress" class="fixed left-0 top-0 z-[60] h-1 w-0 bg-gradient-to-r from-brand-500 to-accent-500" aria-hidden="true"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6" aria-label="Main navigation">
+      <a href="#home" id="brand" class="font-display text-lg font-bold tracking-tight">Portfolio</a>
+
+      <ul class="hidden items-center gap-1 md:flex">
+        <li><a href="#about" data-nav class="nav-link">About</a></li>
+        <li><a href="#skills" data-nav class="nav-link">Skills</a></li>
+        <li><a href="#projects" data-nav class="nav-link">Projects</a></li>
+        <li><a href="#contact" data-nav class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" type="button" class="icon-btn" aria-label="Toggle dark mode" aria-pressed="false">
+          <svg id="icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg id="icon-sun" class="hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+        </button>
+
+        <button id="menu-toggle" type="button" class="icon-btn md:hidden" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+          <svg id="icon-menu" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95 md:hidden">
+      <ul class="space-y-1 px-4 py-3">
+        <li><a href="#about" data-nav class="nav-link">About</a></li>
+        <li><a href="#skills" data-nav class="nav-link">Skills</a></li>
+        <li><a href="#projects" data-nav class="nav-link">Projects</a></li>
+        <li><a href="#contact" data-nav class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HOME ============ -->
+    <section id="home" class="relative flex min-h-screen items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6">
+      <div class="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-500/20 blur-3xl animate-float" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -bottom-32 -right-24 h-96 w-96 rounded-full bg-accent-500/20 blur-3xl animate-float" style="animation-delay: -3s" aria-hidden="true"></div>
+
+      <div class="relative mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2">
+        <div>
+          <p class="reveal text-sm font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Hello, I'm</p>
+          <h1 id="hero-name" class="reveal reveal-d1 mt-3 font-display text-5xl font-extrabold tracking-tight sm:text-6xl"></h1>
+          <p class="reveal reveal-d1 mt-4 h-9 font-display text-xl font-semibold text-brand-600 dark:text-brand-400">
+            <span id="typed"></span><span class="caret" aria-hidden="true"></span>
+          </p>
+          <p id="hero-intro" class="reveal reveal-d2 mt-6 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-300"></p>
+
+          <div class="reveal reveal-d2 mt-8 flex flex-wrap gap-3">
+            <a href="#projects" class="btn btn-primary inline-flex">View my projects</a>
+            <a href="#contact" class="btn btn-secondary inline-flex">Get in touch</a>
+            <a id="resume-btn" href="#" download class="btn btn-secondary hidden">Download resume</a>
+          </div>
+
+          <ul id="socials" class="reveal reveal-d3 mt-8 flex flex-wrap gap-3"></ul>
+        </div>
+
+        <div class="reveal reveal-d2 flex justify-center">
+          <div class="relative">
+            <div class="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand-500 to-accent-500 opacity-30 blur-2xl" aria-hidden="true"></div>
+            <div id="avatar" class="relative flex h-72 w-72 items-center justify-center overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-500 to-accent-500 shadow-2xl sm:h-80 sm:w-80">
+              <span id="avatar-initials" class="font-display text-7xl font-bold text-white"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="px-4 py-24 sm:px-6">
+      <div class="mx-auto max-w-6xl">
+        <div class="reveal">
+          <p class="section-eyebrow">About me</p>
+          <h2 class="section-title">Background and interests</h2>
+        </div>
+
+        <div class="mt-12 grid gap-10 md:grid-cols-5">
+          <div id="about-text" class="reveal space-y-4 md:col-span-3"></div>
+
+          <aside class="reveal card p-6 md:col-span-2">
+            <h3 class="font-display text-lg font-semibold">Quick facts</h3>
+            <dl id="about-facts" class="mt-4 space-y-4"></dl>
+            <h4 class="mt-6 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Interests</h4>
+            <div id="about-interests" class="mt-3 flex flex-wrap gap-2"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills" class="px-4 py-24 sm:px-6">
+      <div class="mx-auto max-w-6xl">
+        <div class="reveal">
+          <p class="section-eyebrow">Skills</p>
+          <h2 class="section-title">What I can do right now</h2>
+          <p class="mt-4 max-w-2xl text-slate-600 dark:text-slate-300">
+            These levels are an honest snapshot of my current abilities. I update them as I learn.
+          </p>
+        </div>
+
+        <div id="skills-grid" class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+
+        <div class="reveal mt-12">
+          <h3 class="font-display text-lg font-semibold">Tools I use</h3>
+          <div id="tools-list" class="mt-4 flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="px-4 py-24 sm:px-6">
+      <div class="mx-auto max-w-6xl">
+        <div class="reveal">
+          <p class="section-eyebrow">Projects</p>
+          <h2 class="section-title">Class work and practice</h2>
+          <p class="mt-4 max-w-2xl text-slate-600 dark:text-slate-300">
+            Select a project to see what it does and what I contributed.
+          </p>
+        </div>
+
+        <div id="filters" class="reveal mt-10 flex flex-wrap gap-2" role="group" aria-label="Filter projects"></div>
+        <div id="projects-grid" class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
+        <p id="projects-empty" class="mt-10 hidden text-center text-slate-500 dark:text-slate-400">No projects in this category yet.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="px-4 py-24 sm:px-6">
+      <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
+        <div class="reveal">
+          <p class="section-eyebrow">Contact</p>
+          <h2 class="section-title">Let's connect</h2>
+          <p class="mt-4 text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+            I welcome feedback, collaboration, and opportunities to keep learning. Email is the quickest way to reach me.
+          </p>
+
+          <div class="card mt-8 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div class="min-w-0">
+              <p class="text-sm text-slate-500 dark:text-slate-400">Email</p>
+              <a id="email-link" href="#" class="block break-all font-semibold text-brand-600 hover:underline dark:text-brand-400"></a>
+            </div>
+            <button id="copy-email" type="button" class="btn btn-secondary inline-flex shrink-0 !py-2 text-sm">Copy email</button>
+          </div>
+
+          <ul id="contact-links" class="mt-6 flex flex-wrap gap-3"></ul>
+        </div>
+
+        <form id="contact-form" class="reveal card space-y-5 p-6 sm:p-8" novalidate>
+          <div>
+            <label for="cf-name" class="label">Your name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" class="field" />
+            <p class="error" data-error-for="name"></p>
+          </div>
+          <div>
+            <label for="cf-email" class="label">Your email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" class="field" />
+            <p class="error" data-error-for="email"></p>
+          </div>
+          <div>
+            <label for="cf-subject" class="label">Subject <span class="font-normal text-slate-500">(optional)</span></label>
+            <input id="cf-subject" name="subject" type="text" class="field" />
+          </div>
+          <div>
+            <label for="cf-message" class="label">Message</label>
+            <textarea id="cf-message" name="message" rows="5" class="field resize-y"></textarea>
+            <p class="error" data-error-for="message"></p>
+          </div>
+          <button type="submit" class="btn btn-primary w-full">Open email with this message</button>
+          <p id="form-status" class="min-h-[1.5rem] text-sm text-slate-600 dark:text-slate-300" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-slate-200 px-4 py-8 text-center text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
+    <p>&copy; <span id="year"></span> <span id="footer-name"></span>. Built with HTML, CSS, JavaScript and Tailwind CSS.</p>
+  </footer>
+
+  <button id="back-to-top" type="button" class="back-top fixed bottom-6 right-6 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg hover:bg-brand-700" aria-label="Back to top">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+
+  <!-- ============ PROJECT DETAILS DIALOG ============ -->
+  <dialog id="project-modal" class="project-dialog" aria-labelledby="modal-title">
+    <div class="relative">
+      <button id="modal-close" type="button" class="icon-btn absolute right-4 top-4 z-10" aria-label="Close project details">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div id="modal-media" class="relative aspect-video w-full overflow-hidden"></div>
+
+      <div class="space-y-5 p-6 sm:p-8">
+        <div class="flex flex-wrap items-center gap-2">
+          <span id="modal-category" class="text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400"></span>
+          <span id="modal-status" class="pill-soft"></span>
+        </div>
+        <h3 id="modal-title" class="font-display text-2xl font-bold"></h3>
+        <div id="modal-body" class="space-y-3 leading-relaxed text-slate-600 dark:text-slate-300"></div>
+
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">My contribution</h4>
+          <p id="modal-contribution" class="mt-2 leading-relaxed"></p>
+        </div>
+
+        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+        <div id="modal-links" class="flex flex-wrap gap-3"></div>
+      </div>
+    </div>
+  </dialog>
+
+</body>
+</html>
