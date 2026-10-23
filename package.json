@@ -1,0 +1,13 @@
+{
+  "name": "leonilo-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio with background, skills, class projects and contact details.",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes serve -l 3000 .",
+    "build": "rm -rf dist && mkdir dist && cp index.html style.css content.js script.js dist/ && cp -r images assets dist/",
+    "preview": "npx --yes serve -l 3000 dist"
+  },
+  "author": "Leonilo Ondangan",
+  "license": "MIT"
+}
